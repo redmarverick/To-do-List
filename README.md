@@ -16,7 +16,7 @@ REQUIRED SECTIONS:
 -->
 
 <div align="center">
-  <h1><b>Awesome Books</b></h1>
+  <h1><b>To do List</b></h1>
 </div>
 
 <!-- TABLE OF CONTENTS -->
@@ -44,9 +44,9 @@ REQUIRED SECTIONS:
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Awesome-Books <a name="about-project"></a>
+# 📖 To do List <a name="about-project"></a>
 
-**Awesome books** is a simple and user-friendly web application that allows you to create and manage a list of books that you're interested in. With Awesome Books, you can easily add or remove books from your list, and all changes are automatically saved to your local storage, so you can access your list at any time.
+**To do List** is a project done This is for the activity "To Do list: list structure" of the Microverse Program. The goal is to to use webpack and ES6.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -67,8 +67,9 @@ REQUIRED SECTIONS:
 
 ### Key Features <a name="key-features"></a>
 
-- **Responsive design that adapts to different screen sizes and devices.**
-- **Add a nice UI so it's more friendly to use.**
+- **Use Webpack**
+- **Use ES6**
+- **Use Add/Update/Remove Tasks**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -92,23 +93,29 @@ In order to run this project you need:
 
 ### Setup
 
-In order to clone this repository to your desired folder, run the commands below on your console:
+Clone this repository to your desired folder and install required dependencies:
 
 ```sh
-    git clone https://github.com/redmarverick/books-list.git
-```
+  cd my-folder
+  git clone git@github.com:myaccount/my-project.git
 
-### Install
+  npm init -y
+  npm install webpack webpack-cli --save-dev
+  npm install --save-dev html-webpack-plugin
+  npm install --save-dev html-loader 
 
-Install this project running the following commands:
-
-```sh
-  npm install
+  npm install --save-dev style-loader css-loader
+  npm install --save-dev webpack-dev-server
 ```
 
 ### Usage
 
-To run the project, open the index.html file on your web browser or with live-server extension.
+To run the project, execute the following command:
+
+```sh
+  npm run build
+  npm start
+```
 
 ### Run tests
 
@@ -143,7 +150,7 @@ To run tests, run the following command:
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/Alejuda/Awesome-books/issues).
+Feel free to check the [issues page](https://github.com/redmarverick/To-do-List/issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -160,6 +167,8 @@ Thanks for checking out our books app! Please feel free to reach out with any qu
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
 would like to thanks Microverse corporation for the README template.<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+Inspired by [getminimalist](https://web.archive.org/web/20180320194056/http://www.getminimalist.com:80/), thanks to them
 
 <!-- FAQ (optional) -->
 
