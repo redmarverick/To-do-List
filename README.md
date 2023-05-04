@@ -139,9 +139,6 @@ To run tests, run the following command:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- **Search functionality: Allow users to search for books by title, author, or other keywords.**
-- **Custom categories: Give users the ability to create custom categories or tags for their books, such as "To Read", "Favorites", or "Non-Fiction"**
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
