@@ -1,40 +1,20 @@
-class ListTasks {
+import Task from './Task.js';
+
+export default class ListTasks {
   constructor() {
     this.list = [];
+
+    this.dragStartID = -1;
+    this.dragEndID = -1;
   }
 
   add = (description, completed = false, index = this.list.length + 1) => {
-    const task = { description, completed, index };
+    const task = new Task(description, completed, index);
     this.list.push(task);
     this.display(task);
   }
 
-  onEdit = (event) => {
-    const { id } = event.parentElement.parentElement;
-    const litask = document.getElementById(id);
-    litask.style.backgroundColor = 'white';
-
-    this.list[id - 1].description = event.value;
-    const iDelete = event.parentElement.nextSibling;
-    const iMenu = event.parentElement.nextSibling.nextSibling;
-
-    setTimeout(() => {
-      iMenu.classList.remove('hidden');
-      iDelete.classList.add('hidden');
-    }, 200);
-  }
-
-  onCheck = (input) => {
-    const { id } = input.parentElement.parentElement;
-    if (input.checked) {
-      input.nextSibling.style.textDecoration = 'line-through';
-      this.list[id - 1].completed = true;
-    } else {
-      input.nextSibling.style.textDecoration = 'none';
-      this.list[id - 1].completed = false;
-    }
-  }
-
+  /* Generate / Update task dynamicaly */
   display = (task) => {
     const ulListTask = document.getElementById('list-task');
     const liTask = document.createElement('li');
@@ -42,7 +22,7 @@ class ListTasks {
     liTask.id = task.index;
 
     const divTaskContent = document.createElement('div');
-    divTaskContent.classList.add('task-content');
+    divTaskContent.classList.add('align-center', 'task-content');
     const checkBok = document.createElement('input');
     checkBok.type = 'checkbox';
     checkBok.name = task.index;
@@ -52,6 +32,7 @@ class ListTasks {
     inTaskDescription.value = task.description;
     inTaskDescription.type = 'text';
 
+    /* Update */
     checkBok.addEventListener('change', (event) => {
       const { id } = event.currentTarget.parentElement.parentElement;
       if (event.currentTarget.checked) {
@@ -73,13 +54,28 @@ class ListTasks {
       document.getElementById(id).style.backgroundColor = 'rgb(156, 156, 255)';
       const iDelete = event.currentTarget.parentElement.nextSibling;
       const iMenu = event.currentTarget.parentElement.nextSibling.nextSibling;
-      deleteHid();
+      iDelete.classList.remove('hidden');
+      iMenu.classList.add('hidden');
     });
 
-    inTaskDescription.addEventListener('focusout', (e) => {
-      this.onEdit(e);
+    /* Update value when stop focus */
+    inTaskDescription.addEventListener('focusout', (event) => {
+      const { id } = event.currentTarget.parentElement.parentElement;
+      const litask = document.getElementById(id);
+      litask.style.backgroundColor = 'white';
+
+      this.list[id - 1].description = event.currentTarget.value;
+      const iDelete = event.currentTarget.parentElement.nextSibling;
+      const iMenu = event.currentTarget.parentElement.nextSibling.nextSibling;
+
+      /* Set time out before hide the iDelete:
+      to make sure the click event always be tiggered before focusout */
+      setTimeout(() => {
+        deleteHid();
+      }, 200);
     });
 
+    /* Display element */
     divTaskContent.append(checkBok);
     divTaskContent.append(inTaskDescription);
 
@@ -89,10 +85,15 @@ class ListTasks {
 
     const iDelete = document.createElement('i');
     iDelete.classList.add('fa-solid', 'fa-trash', 'hidden');
+    iDelete.style.color = '#fff';
     iDelete.setAttribute = ('onclick', 'deleteHid()');
+    iMenu.addEventListener('click', (event) => {
+      deleteHid();
+      iDelete.style.color = '#c1c1c1';
+    });
     iDelete.addEventListener('click', (event) => {
       const { id } = event.currentTarget.parentElement;
-      this.delete(id);
+      this.delete(id); // Note: is id = index + 1
     });
 
     liTask.append(divTaskContent);
@@ -103,6 +104,8 @@ class ListTasks {
       iMenu.classList.toggle('hidden');
       iDelete.classList.toggle('hidden');
     }
+
+    this.addEventsDragAndDrop(liTask);
 
     ulListTask.append(liTask);
   }
@@ -134,6 +137,38 @@ class ListTasks {
     this.list = this.list.filter((task) => !task.completed);
     this.updateIndexs();
   }
-}
 
-module.exports = ListTasks;
+  addEventsDragAndDrop = (element) => {
+    element.draggable = 'true';
+    element.addEventListener('dragstart', (event) => {
+      this.dragStartID = event.currentTarget.id;
+      event.currentTarget.style.backgroundColor = 'rgb(156, 156, 255)';
+    }, false);
+    element.addEventListener('dragend', () => {
+      /* Supprimer element draged task */
+      const dragedTask = this.list[Number(this.dragStartID) - 1];
+      this.list = this.list.filter((task) => task.index !== dragedTask.index);
+
+      /* Add draged task to his new position */
+      this.list.splice(Number(this.dragEndID) - 1, 0, dragedTask);
+
+      this.updateIndexs();
+      const list = document.getElementById('list-task');
+      list.innerHTML = '';
+      this.list.forEach((task) => {
+        this.display(task);
+      });
+    }, false);
+
+    element.addEventListener('dragleave', (event) => {
+      event.currentTarget.style.backgroundColor = '#fff';
+      event.preventDefault();
+    }, false);
+
+    element.addEventListener('dragover', (event) => {
+      event.currentTarget.style.backgroundColor = '#ebebeb';
+      this.dragEndID = event.currentTarget.id;
+      event.preventDefault();
+    });
+  }
+}
