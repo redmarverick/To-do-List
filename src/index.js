@@ -48,4 +48,4 @@ window.addEventListener('load', () => {
   loadData();
 });
 
-export{saveData};
+export { saveData };
