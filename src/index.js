@@ -20,10 +20,7 @@ function loadData() {
   }
 }
 
-/* List Task */
 export const listTask = new ListTasks();
-
-/* On submit the input */
 const form = document.forms[0];
 form.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -39,7 +36,6 @@ btnClearAll.addEventListener('click', () => {
   listTask.clearAll();
 });
 
-/* Save changes in Local Storage */
 window.addEventListener('beforeunload', () => {
   saveData(form.newtask.value, listTask.list);
 });
