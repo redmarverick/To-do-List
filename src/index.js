@@ -102,6 +102,6 @@ const task = [
   },
 ];
 
-for(let i = 1; i <= task.length; i+=1){
+for (let i = 1; i <= task.length; i += 1) {
   display(task, i);
 }
