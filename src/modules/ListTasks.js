@@ -1,5 +1,3 @@
-import Task from './Task.js';
-
 export default class ListTasks {
   constructor() {
     this.list = [];
@@ -8,7 +6,7 @@ export default class ListTasks {
     this.dragEndID = -1;
   }
 
-  /*add = (description, completed = false, index = this.list.length + 1) => {
+  /* add = (description, completed = false, index = this.list.length + 1) => {
     const task = new Task(description, completed, index);
     this.list.push(task);
     this.display(task);
@@ -92,7 +90,7 @@ export default class ListTasks {
     this.addEventsDragAndDrop(liTask);
 
     ulListTask.append(liTask);
-  }*/
+  } */
 
   delete = (idDeleted) => {
     this.list = this.list.filter((task) => task.index !== this.list[idDeleted - 1].index);

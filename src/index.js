@@ -1,36 +1,20 @@
 import './style.css';
-import ListTasks from './modules/ListTasks.js';
 
-/* List Task */
-/*const listTask = new ListTasks();*/
-
-function clearAll(){
-  for (let i = 0; i<task.length;i+=1){
-    if (task.completed) {
-      document.getElementById(task.index).remove();
-    }
-  };
-
-  this.list = this.list.filter((task) => !task.completed);
-  this.updateIndexs();
-}
-
-function display(task,ind){
+function display(task, ind) {
   const ulListTask = document.getElementById('list-task');
   const liTask = document.createElement('li');
   liTask.classList.add('task');
-  console.log(task[ind-1].index);
-  liTask.id = task[ind-1].index;
+  liTask.id = task[ind - 1].index;
 
   const divTaskContent = document.createElement('div');
   divTaskContent.classList.add('align-center', 'task-content');
   const checkBok = document.createElement('input');
   checkBok.type = 'checkbox';
-  checkBok.name = task[ind-1].index;
+  checkBok.name = task[ind - 1].index;
 
   const inTaskDescription = document.createElement('input');
   inTaskDescription.classList.add('task-description');
-  inTaskDescription.value = task[ind-1].description;
+  inTaskDescription.value = task[ind - 1].description;
   inTaskDescription.type = 'text';
 
   checkBok.addEventListener('change', (event) => {
@@ -100,19 +84,15 @@ const form = document.forms[0];
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   if (form.newtask.value.trim().length !== 0) {
-    let item = {'description':form.newtask.value, 'completed':false, 'index':task.length + 1};
+    const item = { description: form.newtask.value, completed: false, index: task.length + 1 };
     task.push(item);
-    display(task,item.index);
+    display(task, item.index);
   }
   form.newtask.value = '';
 });
 
-const btnClearAll = document.getElementById('btn-clear-task');
-btnClearAll.addEventListener('click', () => {
-  clearAll();
-});
 /*
- Save changes in Local Storage 
+ Save changes in Local Storage
 window.addEventListener('beforeunload', () => {
   const savedData = { currentDescription: form.newtask.value, list: listTask.list };
   window.localStorage.setItem('SavedData', JSON.stringify(savedData));
@@ -131,4 +111,4 @@ window.addEventListener('load', () => {
       display(task);
     };
   }
-})*/
+}) */
