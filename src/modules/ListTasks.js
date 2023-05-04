@@ -17,7 +17,6 @@ export default class ListTasks {
     this.display(task);
   }
 
-  /* Generate / Update task dynamicaly */
   display = (task) => {
     const ulListTask = document.getElementById('list-task');
     const liTask = document.createElement('li');
@@ -35,7 +34,6 @@ export default class ListTasks {
     inTaskDescription.value = task.description;
     inTaskDescription.type = 'text';
 
-    /* Update */
     checkBok.addEventListener('change', (event) => {
       const { id } = event.currentTarget.parentElement.parentElement;
       if (event.currentTarget.checked) {
@@ -62,7 +60,6 @@ export default class ListTasks {
       iMenu.classList.add('hidden');
     });
 
-    /* Update value when stop focus */
     inTaskDescription.addEventListener('focusout', (event) => {
       const { id } = event.currentTarget.parentElement.parentElement;
       const litask = document.getElementById(id);
@@ -72,14 +69,11 @@ export default class ListTasks {
       const iDelete = event.currentTarget.parentElement.nextSibling;
       const iMenu = event.currentTarget.parentElement.nextSibling.nextSibling;
 
-      /* Set time out before hide the iDelete:
-      to make sure the click event always be tiggered before focusout */
       setTimeout(() => {
         deleteHid();
       }, 200);
     });
 
-    /* Display element */
     divTaskContent.append(checkBok);
     divTaskContent.append(inTaskDescription);
 
@@ -97,7 +91,7 @@ export default class ListTasks {
     });
     iDelete.addEventListener('click', (event) => {
       const { id } = event.currentTarget.parentElement;
-      this.delete(id); // Note: is id = index + 1
+      this.delete(id);
     });
 
     liTask.append(divTaskContent);
@@ -151,13 +145,9 @@ export default class ListTasks {
       event.currentTarget.style.backgroundColor = 'rgb(156, 156, 255)';
     }, false);
     element.addEventListener('dragend', () => {
-      /* Supprimer element draged task */
       const dragedTask = this.list[Number(this.dragStartID) - 1];
       this.list = this.list.filter((task) => task.index !== dragedTask.index);
-
-      /* Add draged task to his new position */
       this.list.splice(Number(this.dragEndID) - 1, 0, dragedTask);
-
       this.updateIndexs();
       const list = document.getElementById('list-task');
       list.innerHTML = '';
