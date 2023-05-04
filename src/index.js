@@ -79,36 +79,29 @@ function display(task, ind) {
 }
 
 /* On submit the input */
-const task = [];
-const form = document.forms[0];
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  if (form.newtask.value.trim().length !== 0) {
-    const item = { description: form.newtask.value, completed: false, index: task.length + 1 };
-    task.push(item);
-    display(task, item.index);
-  }
-  form.newtask.value = '';
-});
+const task = [
+  {
+    description: 'Buying groceries',
+    completed: 'false',
+    index: 1,
+  },
+  {
+    description: 'Pay electricity bill',
+    completed: 'false',
+    index: 2,
+  },
+  {
+    description: 'Repair the stove',
+    completed: 'false',
+    index: 3,
+  },
+  {
+    description: 'get a haircut',
+    completed: 'false',
+    index: 4,
+  },
+];
 
-/*
- Save changes in Local Storage
-window.addEventListener('beforeunload', () => {
-  const savedData = { currentDescription: form.newtask.value, list: listTask.list };
-  window.localStorage.setItem('SavedData', JSON.stringify(savedData));
-});
-
-window.addEventListener('load', () => {
-  const savedData = JSON.parse(window.localStorage.getItem('SavedData'));
-
-  if (savedData.currentDescription != null) {
-    form.newtask.value = savedData.currentDescription;
-  }
-  if (savedData.list != null) {
-    for(let i = 0; i<task.length;i+=1){
-      let item = {'description':task.description, 'completed':task.completed, 'index':task.index};
-      task.push(item);
-      display(task);
-    };
-  }
-}) */
+for(let i = 1; i <= task.length; i+=1){
+  display(task, i);
+}
