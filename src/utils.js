@@ -1,5 +1,3 @@
-import { saveData } from '../index.js';
-
 class ListTasks {
   constructor() {
     this.list = [];
@@ -95,8 +93,6 @@ class ListTasks {
     iDelete.addEventListener('click', (event) => {
       const { id } = event.currentTarget.parentElement;
       this.delete(id);
-      console.log(form.newtask.value, this.listTask.list);
-      index.saveData(form.newtask.value, this.listTask.list);
     });
 
     liTask.append(divTaskContent);

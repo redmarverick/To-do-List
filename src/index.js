@@ -3,7 +3,7 @@ import ListTasks from './modules/ListTasks.js';
 
 let savedData;
 
-export function saveData(dataValue, dataList) {
+function saveData(dataValue, dataList) {
   savedData = { currentDescription: dataValue, list: dataList };
   localStorage.setItem('SavedData', JSON.stringify(savedData));
 }
@@ -21,7 +21,7 @@ function loadData() {
 }
 
 /* List Task */
-const listTask = new ListTasks();
+export const listTask = new ListTasks();
 
 /* On submit the input */
 const form = document.forms[0];
@@ -47,3 +47,5 @@ window.addEventListener('beforeunload', () => {
 window.addEventListener('load', () => {
   loadData();
 });
+
+export{saveData};

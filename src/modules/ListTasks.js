@@ -1,5 +1,5 @@
 import Task from './Task.js';
-import { saveData, listTask } from '../index.js';
+import { saveData } from '../index.js';
 
 const form = document.forms[0];
 
@@ -45,6 +45,7 @@ export default class ListTasks {
         event.currentTarget.nextSibling.style.textDecoration = 'none';
         this.list[id - 1].completed = false;
       }
+      saveData(form.newtask.value, this.list);
     });
 
     if (task.completed) {
@@ -117,7 +118,7 @@ export default class ListTasks {
     this.list = this.list.filter((task) => task.index !== this.list[idDeleted - 1].index);
     document.getElementById(idDeleted).remove();
     this.updateIndexs();
-    saveData(form.newtask.value, this.list)
+    saveData(form.newtask.value, this.list);
   }
 
   updateIndexs = () => {
@@ -129,7 +130,7 @@ export default class ListTasks {
       task.index = index;
       index += 1;
     });
-    saveData(form.newtask.value, this.list)
+    saveData(form.newtask.value, this.list);
   }
 
   clearAll = () => {
@@ -140,7 +141,7 @@ export default class ListTasks {
     });
     this.list = this.list.filter((task) => !task.completed);
     this.updateIndexs();
-    saveData(form.newtask.value, this.list)
+    saveData(form.newtask.value, this.list);
   }
 
   addEventsDragAndDrop = (element) => {
@@ -163,7 +164,7 @@ export default class ListTasks {
       this.list.forEach((task) => {
         this.display(task);
       });
-      saveData(form.newtask.value, this.list)
+      saveData(form.newtask.value, this.list);
     }, false);
 
     element.addEventListener('dragleave', (event) => {
