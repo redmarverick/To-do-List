@@ -1,6 +1,25 @@
 import './style.css';
 import ListTasks from './modules/ListTasks.js';
 
+let savedData;
+
+export function saveData(dataValue, dataList) {
+  savedData = { currentDescription: dataValue, list: dataList };
+  localStorage.setItem('SavedData', JSON.stringify(savedData));
+}
+
+function loadData() {
+  const savedData = JSON.parse(localStorage.getItem('SavedData'));
+  if (savedData.currentDescription != null) {
+    form.newtask.value = savedData.currentDescription;
+  }
+  if (savedData.list != null) {
+    savedData.list.forEach((task) => {
+      listTask.add(task.description, task.completed, task.index);
+    });
+  }
+}
+
 /* List Task */
 const listTask = new ListTasks();
 
@@ -12,6 +31,7 @@ form.addEventListener('submit', (event) => {
     listTask.add(form.newtask.value);
   }
   form.newtask.value = '';
+  saveData(form.newtask.value, listTask.list);
 });
 
 const btnClearAll = document.getElementById('btn-clear-task');
@@ -21,19 +41,9 @@ btnClearAll.addEventListener('click', () => {
 
 /* Save changes in Local Storage */
 window.addEventListener('beforeunload', () => {
-  const savedData = { currentDescription: form.newtask.value, list: listTask.list };
-  window.localStorage.setItem('SavedData', JSON.stringify(savedData));
+  saveData(form.newtask.value, listTask.list);
 });
 
 window.addEventListener('load', () => {
-  const savedData = JSON.parse(window.localStorage.getItem('SavedData'));
-
-  if (savedData.currentDescription != null) {
-    form.newtask.value = savedData.currentDescription;
-  }
-  if (savedData.list != null) {
-    savedData.list.forEach((task) => {
-      listTask.add(task.description, task.completed, task.index);
-    });
-  }
+  loadData();
 });
