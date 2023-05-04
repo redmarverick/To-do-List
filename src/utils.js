@@ -99,7 +99,7 @@ class ListTasks {
     liTask.append(iDelete);
     liTask.append(iMenu);
 
-    function deleteHid(){
+    function deleteHid() {
       iMenu.classList.toggle('hidden');
       iDelete.classList.toggle('hidden');
     }
